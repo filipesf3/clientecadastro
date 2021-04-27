@@ -32,6 +32,22 @@ app.get('/api/user/:id', (req, res) => {
     })
 })
 
+app.get('/api/user', (req, res) => {
+    sequelize.query('select * from users',
+        { type: sequelize.QueryTypes.SELECT }
+    ).then(user => {
+        console.log("Requisição concluida")
+        if (user == '') {
+            res.send('Nenhum usuario encontrando')
+        } else {
+            res.send(JSON.stringify(user))
+        }
+    }).catch(error => {
+        console.log(error)
+        res.send(500)
+    })
+})
+
 app.post('/api/user/add', (req, res) => {
     sequelize.query('insert into users values(default,"' + req.body.name + '",' + req.body.idade + ')',
         { type: sequelize.create }
