@@ -49,7 +49,7 @@ app.get('/api/user', (req, res) => {
 })
 
 app.post('/api/user/add', (req, res) => {
-    sequelize.query('insert into users values(default,"' + req.body.name + '",' + req.body.idade + ')',
+    sequelize.query('insert into users values(default,"' + req.body.name + '",' + req.body.idade + ',"' + req.body.email + '")',
         { type: sequelize.create }
     ).then(user => {
         console.log("Usuario adicionado com sucesso!")
@@ -61,7 +61,7 @@ app.post('/api/user/add', (req, res) => {
 })
 
 app.put('/api/user/update/:id', (req, res) => {
-    sequelize.query('update users set name = "' + req.body.name + '", idade = ' + req.body.idade + ' where id = ' + req.params.id,
+    sequelize.query('update users set name = "' + req.body.name + '", idade = ' + req.body.idade + ', email = ' + req.body.email + ' where id = ' + req.params.id,
         { type: sequelize.update }
     ).then(user => {
         console.log("Usuario atualizado com sucesso!")
